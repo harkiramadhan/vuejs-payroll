@@ -57,9 +57,6 @@ export default {
         },
         logout(event) {
             event.preventDefault()
-            // const postData = {
-            //     token: localStorage.token
-            // }
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios

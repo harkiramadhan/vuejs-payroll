@@ -22,16 +22,6 @@ const routes = [
     ]
   },
   {
-    path: "/dashboard",
-    component: Admin,
-    children: [
-      {
-        path: "dashboard",
-        component: Dashboard,
-      }
-    ],
-  },
-  {
     path: "/admin",
     redirect: "/admin/dashboard",
     component: Admin,
