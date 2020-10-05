@@ -48,9 +48,9 @@ export default {
     },
     mounted() {
         if (localStorage.token) {
-            this.token = localStorage.token;
-            console.log(this.token)
-            this.$router.push("/dashboard");
+            this.token = localStorage.token
+            this.role = localStorage.role
+            this.$router.push(this.role + "/dashboard")
         }
     },
     methods: {
@@ -62,11 +62,14 @@ export default {
             axios
                 .post('http://127.0.0.1:8000/api/login', postData)
                 .then(response => {
-                    console.log(response.data.success.token);
-                    const token = response.data.success.token;
+                    console.log(response.data.success.token)
+                    const token = response.data.success.token
+                    const userData = response.data.success.data
+                    localStorage.role = userData.role
+                    localStorage.name = userData.name
+                    localStorage.email = userData.email
                     localStorage.token = token
-                    this.$router.push("/dashboard");
-
+                    this.$router.push(userData.role + "/dashboard")
                 })
                 .catch(error => {
                     console.log(error)
