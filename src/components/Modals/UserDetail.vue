@@ -5,7 +5,7 @@
             <!--content-->
             <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
-                <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t bg-gray-100">
                     <h3 class="text-xl font-semibold">
                         Detail User {{data.name}}
                     </h3>
@@ -16,20 +16,20 @@
                     </button>
                 </div>
                 <!--body-->
-                <div class="relative p-6 flex-auto">
-                    <div class="flex-auto px-4 lg:px-5 py-5 pt-0">
-                        <form class="mt-10" @submit.prevent="login">
+                <form class="mt-10" @submit.prevent="save(data)">
+                    <div class="relative p-6 flex-auto">
+                        <div class="flex-auto px-4 lg:px-5 py-5 pt-0">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 text-left">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Username
                                 </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" v-model="data.email">
+                                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" v-model="data.email" required>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 text-left">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Role
                                 </label>
-                                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:outline-none focus:shadow-outline">
+                                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:outline-none focus:shadow-outline" v-model="data.role" required>
                                     <option disabled>- Select Role -</option>
                                     <option :selected="data.role === 'admin'" value="admin">Admin</option>
                                     <option :selected="data.role === 'sdm'" value="sdm">SDM</option>
@@ -48,18 +48,18 @@
                                 </label>
                                 <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password">
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <!--footer-->
-                <div class="flex items-start justify-between p-5 border-t border-solid border-gray-300 rounded">
-                    <button @click="close" class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
-                        Close
-                    </button>
-                    <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
-                        Save Changes
-                    </button>
-                </div>
+                    <!--footer-->
+                    <div class="flex items-start justify-between p-5 border-t border-solid border-gray-300 rounded bg-gray-100">
+                        <button @click="close" class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
+                            Close
+                        </button>
+                        <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -91,6 +91,16 @@ export default {
                 return false
             }
             this.activeModal = id
+        },
+        save() {
+            const postData = {
+                id: this.data.id,
+                email: this.data.email,
+                role: this.data.role,
+                password: this.data.password
+            };
+            console.log(postData)
+            this.close()
         }
     }
 }

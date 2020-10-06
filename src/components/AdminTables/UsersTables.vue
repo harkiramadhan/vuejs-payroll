@@ -79,7 +79,6 @@ export default {
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios.get('http://127.0.0.1:8000/api/users').then(response => {
-                console.log(response.data);
                 this.users = response.data
             }).catch((err) => {
                 console.log(err);
@@ -90,6 +89,7 @@ export default {
         },
         toggleModal: function (id) {
             if (this.activeModal !== 0) {
+                this.load();
                 this.activeModal = 0
                 return false
             }
