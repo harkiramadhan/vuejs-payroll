@@ -1,11 +1,7 @@
 <template>
 <div>
     <a class="text-gray-600 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
-        <div class="items-center flex">
-            <span class="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
-                <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
-            </span>
-        </div>
+        <strong class="w-12 h-12 text-sm text-white">{{role}} - {{name}}</strong>
     </a>
     <div ref="popoverDropdownRef" class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
         hidden: !dropdownPopoverShow,
@@ -33,14 +29,14 @@ import {
     createPopper
 } from "@popperjs/core";
 
-import image from "@/assets/img/team-1-800x800.jpg";
 import axios from 'axios';
 
 export default {
     data() {
         return {
             dropdownPopoverShow: false,
-            image: image,
+            name: localStorage.name,
+            role: localStorage.role
         };
     },
     methods: {

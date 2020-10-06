@@ -9,6 +9,8 @@ import Auth from "@/layouts/Auth.vue";
 import Login from "@/views/auth/Login.vue";
 import Admin from "@/layouts/Admin.vue";
 import Dashboard from "@/views/admin/Dashboard.vue";
+import Settings from "@/views/admin/Settings.vue";
+import Users from "@/views/admin/Users.vue";
 
 const routes = [
   {
@@ -23,13 +25,20 @@ const routes = [
   },
   {
     path: "/admin",
-    redirect: "/admin/dashboard",
     component: Admin,
     children: [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-      }
+      },
+      {
+        path: "/admin/settings",
+        component: Settings,
+      },
+      {
+        path: "/admin/users",
+        component: Users,
+      },
     ],
   },
   { path: "*", redirect: "/" },
