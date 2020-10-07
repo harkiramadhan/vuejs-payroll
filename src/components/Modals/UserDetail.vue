@@ -46,7 +46,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Password
                                 </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password">
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password" v-model="data.password">
                             </div>
                         </div>
                     </div>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     props: ['show', 'data'],
     data() {
@@ -93,14 +95,24 @@ export default {
             this.activeModal = id
         },
         save() {
+            const apiurl = process.env.VUE_APP_APIURL
             const postData = {
                 id: this.data.id,
                 email: this.data.email,
                 role: this.data.role,
                 password: this.data.password
             };
-            console.log(postData)
-            this.close()
+            axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
+            axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            axios
+                .post(apiurl + 'user', postData)
+                .then(response => {
+                    console.log(response.data);
+                    this.close()
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     }
 }

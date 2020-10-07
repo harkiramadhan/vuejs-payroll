@@ -1,8 +1,8 @@
 {
-  "name": "vue-tailwind-webapp",
-  "homepage": "https://demos.creative-tim.com/vue-tailwind-webapp/",
+  "name": "dqm-payroll",
+  "homepage": "https://darulquran.sch.id/",
   "version": "1.0.0",
-  "description": "Vue Tailwind WebApp - A free Tailwind and VueJS WebApp template by Creative Tim.",
+  "description": "DQM - PAYROLL.",
   "repository": "https://github.com/creativetimofficial/vue-tailwind-webapp",
   "license": "MIT",
   "scripts": {
@@ -19,6 +19,7 @@
     "axios": "^0.20.0",
     "chart.js": "2.9.3",
     "core-js": "3.6.5",
+    "dotenv": "^8.2.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "tailwindcss": "1.8.10",

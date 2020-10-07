@@ -76,9 +76,11 @@ export default {
     },
     methods: {
         load() {
+            const apiurl = process.env.VUE_APP_APIURL
+            console.log(apiurl);
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-            axios.get('http://127.0.0.1:8000/api/users').then(response => {
+            axios.get(apiurl + 'users').then(response => {
                 this.users = response.data
             }).catch((err) => {
                 console.log(err);
