@@ -2,12 +2,18 @@
 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-green-900 text-white']">
     <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
-            <div class="relative w-10/12 px-4 flex-grow flex-1">
+            <div class="relative w-5/12 px-4 flex-grow flex-1 my-2">
                 <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-gray-800' : 'text-white']">
                     Users
                 </h3>
             </div>
-            <div class="relative w-2/12 px-4 flex-grow flex-1 text-right">
+            <div class="relative w-2/12 px-4 my-2">
+                <span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-2 py-1">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" v-model="searchQuery" placeholder="Search User" class="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pl-10" />
+            </div>
+            <div class="relative w-2/12 px-4 text-right my-2">
                 <UserAdd :show="showAddModal()" @close="toggleAddModal()" />
                 <button @click.stop="toggleAddModal()" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                     <i class="fas fa-plus-circle"></i> User
@@ -40,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in resultQuery" :key="user.id">
                     <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
                         {{user.id}}
                     </th>
@@ -83,6 +89,7 @@ export default {
             users: [],
             activeModal: 0,
             activeModalAdd: 0,
+            searchQuery: null,
         };
     },
     mounted() {
@@ -128,6 +135,17 @@ export default {
     components: {
         UserDetail,
         UserAdd
+    },
+    computed: {
+        resultQuery() {
+            if (this.searchQuery) {
+                return this.users.filter((user) => {
+                    return this.searchQuery.toLowerCase().split(' ').every(v => user.email.toLowerCase().includes(v))
+                })
+            } else {
+                return this.users;
+            }
+        }
     },
     props: {
         color: {
