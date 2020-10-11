@@ -59,10 +59,8 @@ export default {
                 .post('http://127.0.0.1:8000/api/logout/')
                 .then(response => {
                     console.log(response)
-                    if (response.status == 200) {
-                        localStorage.clear()
-                        this.$router.push(this.role + "/")
-                    }
+                    localStorage.clear()
+                    this.$router.push("/")
                 })
 
         }

@@ -7,7 +7,7 @@
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t bg-gray-100">
                     <h3 class="text-xl font-semibold">
-                        Detail User {{data.name}}
+                        Add User
                     </h3>
                     <button @click="close" class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
                         <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -16,25 +16,25 @@
                     </button>
                 </div>
                 <!--body-->
-                <form class="mt-10" @submit.prevent="save(data)">
+                <form class="mt-10" @submit.prevent="save()" ref="userAddMdal">
                     <div class="relative p-6 flex-auto">
                         <div class="flex-auto px-4 lg:px-5 py-5 pt-0">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 text-left">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Username
                                 </label>
-                                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" v-model="data.email" required>
+                                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" v-model="email" placeholder="Username" required>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 text-left">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Role
                                 </label>
-                                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:outline-none focus:shadow-outline" v-model="data.role" required>
-                                    <option disabled>- Select Role -</option>
-                                    <option :selected="data.role === 'admin'" value="admin">Admin</option>
-                                    <option :selected="data.role === 'sdm'" value="sdm">SDM</option>
-                                    <option :selected="data.role === 'keuangan'" value="keuangan">Keuangan</option>
-                                    <option :selected="data.role === 'dqmart'" value="dqmart">DQ Mart</option>
+                                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:outline-none focus:shadow-outline" v-model="role" required>
+                                    <option value="" selected>- Select Role -</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="sdm">SDM</option>
+                                    <option value="keuangan">Keuangan</option>
+                                    <option value="dqmart">DQ Mart</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -46,7 +46,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                     Password
                                 </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password" v-model="data.password">
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password" v-model="password" placeholder="Password" required>
                             </div>
                         </div>
                     </div>
@@ -70,10 +70,12 @@
 import axios from 'axios';
 
 export default {
-    props: ['show', 'data'],
+    props: ['show'],
     data() {
         return {
-
+            'email': '',
+            'role': '',
+            'password': ''
         }
     },
     mounted: function () {
@@ -97,25 +99,17 @@ export default {
         save() {
             const apiurl = process.env.VUE_APP_APIURL
             const postData = {
-                id: this.data.id,
-                email: this.data.email,
-                role: this.data.role,
-                password: this.data.password,
-                _method: "PUT"
+                email: this.email,
+                role: this.role,
+                password: this.password
             };
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios
-                .put(apiurl + 'user', postData)
+                .post(apiurl + 'user', postData)
                 .then(response => {
-                    console.log(response.data);
-                    if (this.data.id == localStorage.userid) {
-                        localStorage.clear()
-                        this.$router.push("/")
-                        this.close()
-                    } else {
-                        this.close()
-                    }
+                    console.log(response);
+                    this.close()
                 })
                 .catch(err => {
                     console.log(err);

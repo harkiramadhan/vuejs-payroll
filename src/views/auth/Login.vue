@@ -62,12 +62,12 @@ export default {
             axios
                 .post('http://127.0.0.1:8000/api/login', postData)
                 .then(response => {
-                    console.log(response.data.success.token)
                     const token = response.data.success.token
                     const userData = response.data.success.data
                     localStorage.role = userData.role
                     localStorage.name = userData.name
                     localStorage.email = userData.email
+                    localStorage.userid = userData.id
                     localStorage.token = token
                     this.$router.push(userData.role + "/dashboard")
                 })
