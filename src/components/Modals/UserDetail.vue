@@ -110,9 +110,15 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     if (this.data.id == localStorage.userid) {
-                        localStorage.clear()
-                        this.$router.push("/")
-                        this.close()
+                        axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
+                        axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+                        axios
+                            .post('http://127.0.0.1:8000/api/logout/')
+                            .then(response => {
+                                console.log(response)
+                                localStorage.clear()
+                                this.$router.push("/")
+                            })
                     } else {
                         this.close()
                     }
