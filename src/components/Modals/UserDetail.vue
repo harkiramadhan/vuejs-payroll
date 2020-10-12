@@ -113,7 +113,7 @@ export default {
                         axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
                         axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
                         axios
-                            .post('http://127.0.0.1:8000/api/logout/')
+                            .post(apiurl + 'api/logout/')
                             .then(response => {
                                 console.log(response)
                                 localStorage.clear()
