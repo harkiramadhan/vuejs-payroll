@@ -157,7 +157,7 @@ export default {
                     axios
                         .delete(apiurl + 'user/' + user.id)
                         .then(response => {
-                            if (response.status == 200) {
+                            if (response.status === 200) {
                                 swalButtons.fire(
                                     'Deleted!',
                                     'User' + user.email + 'has been deleted.',

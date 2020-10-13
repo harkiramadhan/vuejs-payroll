@@ -68,6 +68,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     props: ['show'],
@@ -108,12 +109,22 @@ export default {
             axios
                 .post(apiurl + 'user', postData)
                 .then(response => {
-                    console.log(response);
-                    this.close()
+                    if (response.status === 200) {
+                        Swal.fire(
+                            'Success!',
+                            'Success Adding User ' + this.email,
+                            'success'
+                        )
+                    }
                 })
                 .catch(err => {
-                    console.log(err);
+                    Swal.fire(
+                        'Error',
+                        'Error While Adding User <br> ' + (err.response.data.errors.email ? err.response.data.errors.email : '') + '<br>' + (err.response.data.errors.role ? err.response.data.errors.role : '') + '<br>' + (err.response.data.errors.password ? err.response.data.errors.password : ''),
+                        'error'
+                    )
                 })
+            this.close()
         }
     }
 }
