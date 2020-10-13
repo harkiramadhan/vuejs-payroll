@@ -68,6 +68,9 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
+const apiurl = process.env.VUE_APP_APIURL
 
 export default {
     props: ['show', 'data'],
@@ -95,7 +98,6 @@ export default {
             this.activeModal = id
         },
         save() {
-            const apiurl = process.env.VUE_APP_APIURL
             const postData = {
                 id: this.data.id,
                 email: this.data.email,
@@ -108,24 +110,32 @@ export default {
             axios
                 .put(apiurl + 'user', postData)
                 .then(response => {
-                    console.log(response.data);
-                    if (this.data.id == localStorage.userid) {
-                        axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
-                        axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-                        axios
-                            .post(apiurl + 'api/logout/')
-                            .then(response => {
-                                console.log(response)
-                                localStorage.clear()
-                                this.$router.push("/")
-                            })
-                    } else {
-                        this.close()
+                    if (response.status === 200) {
+                        if (this.data.id != localStorage.userid) {
+                            Swal.fire(
+                                'Success!',
+                                'Success Update User ' + this.data.email,
+                                'success'
+                            )
+                        } else {
+                            axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
+                            axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+                            axios
+                                .post(apiurl + 'logout')
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        localStorage.clear()
+                                        this.$router.push("/")
+                                    }
+                                })
+                        }
+
                     }
                 })
                 .catch(err => {
                     console.log(err);
                 })
+            this.close()
         }
     }
 }

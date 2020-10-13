@@ -31,6 +31,8 @@ import {
 
 import axios from 'axios';
 
+const apiurl = process.env.VUE_APP_APIURL
+
 export default {
     data() {
         return {
@@ -56,11 +58,12 @@ export default {
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios
-                .post('http://127.0.0.1:8000/api/logout/')
+                .post(apiurl + 'logout/')
                 .then(response => {
-                    console.log(response)
-                    localStorage.clear()
-                    this.$router.push("/")
+                    if (response.status === 200) {
+                        localStorage.clear()
+                        this.$router.push("/")
+                    }
                 })
 
         }

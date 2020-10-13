@@ -37,6 +37,8 @@
 
 <script>
 import axios from 'axios';
+const apiurl = process.env.VUE_APP_APIURL
+
 export default {
     name: 'Login',
     data() {
@@ -60,7 +62,7 @@ export default {
                 password: this.password
             };
             axios
-                .post('http://127.0.0.1:8000/api/login', postData)
+                .post(apiurl + 'login', postData)
                 .then(response => {
                     const token = response.data.success.token
                     const userData = response.data.success.data
