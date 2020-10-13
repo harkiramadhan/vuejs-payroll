@@ -1,86 +1,79 @@
 <template>
-<div>
-    <div class="relative min-w-0 mb-6 shadow-lg rounded">
-        <ErrorAlert v-bind:data="errorData" />
-    </div>
-
-    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-green-900 text-white']">
-        <div class="rounded-t mb-0 px-4 py-3 border-0">
-            <div class="flex flex-wrap items-center">
-                <div class="relative w-5/12 px-4 flex-grow flex-1 my-2">
-                    <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-gray-800' : 'text-white']">
-                        Users
-                    </h3>
-                </div>
-                <div class="relative w-2/12 px-4 my-2">
-                    <span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-2 py-1">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="text" v-model="searchQuery" placeholder="Search User" class="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pl-10" />
-                </div>
-                <div class="relative w-2/12 px-4 text-right my-2">
-                    <UserAdd :show="showAddModal()" @close="toggleAddModal()" />
-                    <button @click.stop="toggleAddModal()" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                        <i class="fas fa-plus-circle"></i> User
-                    </button>
-                </div>
+<div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-green-900 text-white']">
+    <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+            <div class="relative w-5/12 px-4 flex-grow flex-1 my-2">
+                <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-gray-800' : 'text-white']">
+                    Users
+                </h3>
+            </div>
+            <div class="relative w-2/12 px-4 my-2">
+                <span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-2 py-1">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" v-model="searchQuery" placeholder="Search User" class="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pl-10" />
+            </div>
+            <div class="relative w-2/12 px-4 text-right my-2">
+                <UserAdd :show="showAddModal()" @close="toggleAddModal()" />
+                <button @click.stop="toggleAddModal()" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    <i class="fas fa-plus-circle"></i> User
+                </button>
             </div>
         </div>
-        <div class="block w-full overflow-x-auto" style="max-height: 650px">
-            <table class="table-auto items-center w-full bg-transparent border-collapse">
-                <thead>
-                    <tr>
-                        <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            No
-                        </th>
-                        <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            Username
-                        </th>
-                        <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            Roles
-                        </th>
-                        <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            Created At
-                        </th>
-                        <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            Updated At
-                        </th>
-                        <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="user in resultQuery" :key="user.id">
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
-                            {{user.id}}
-                        </th>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
-                            {{user.email}}
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                            {{user.role}}
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                            {{user.created_at}}
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                            {{user.updated_at}}
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
-                            <UserDetail v-bind:data="(user)" :show="showModal(user.id)" @close="toggleModal(user.id)" />
-                            <button @click.stop="toggleModal(user.id)" class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                <i class="fas fa-pencil-alt mr-2 ml-1"></i><span class="mr-2">Edit</span>
-                            </button>
-                            <UserDelete v-bind:data="(user)" :show="showDeleteModal(user.id)" @close="toggleDeleteModal(user.id)" />
-                            <button @click.stop="toggleDeleteModal(user.id)" class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ml-1" type="button">
-                                <i class="fas fa-trash mr-2 ml-1"></i><span class="mr-2">Delete</span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </div>
+    <div class="block w-full overflow-x-auto" style="max-height: 650px">
+        <table class="table-auto items-center w-full bg-transparent border-collapse">
+            <thead>
+                <tr>
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        No
+                    </th>
+                    <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Username
+                    </th>
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Roles
+                    </th>
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Created At
+                    </th>
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Updated At
+                    </th>
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="user in resultQuery" :key="user.id">
+                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
+                        {{user.id}}
+                    </th>
+                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
+                        {{user.email}}
+                    </th>
+                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                        {{user.role}}
+                    </td>
+                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                        {{user.created_at}}
+                    </td>
+                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                        {{user.updated_at}}
+                    </td>
+                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
+                        <UserDetail v-bind:data="(user)" :show="showModal(user.id)" @close="toggleModal(user.id)" />
+                        <button @click.stop="toggleModal(user.id)" class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                            <i class="fas fa-pencil-alt mr-2 ml-1"></i><span class="mr-2">Edit</span>
+                        </button>
+                        <button @click="deleteAlert(user)" class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ml-1" type="button">
+                            <i class="fas fa-trash mr-2 ml-1"></i><span class="mr-2">Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </template>
@@ -89,8 +82,17 @@
 import axios from 'axios';
 import UserDetail from '@/components/Modals/UserDetail.vue';
 import UserAdd from '@/components/Modals/UserAdd.vue';
-import UserDelete from '@/components/Modals/UserDelete.vue';
-import ErrorAlert from '@/components/Alerts/ErrorAlert.vue';
+import Swal from 'sweetalert2';
+
+const swalButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150',
+        cancelButton: 'bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+    },
+    buttonsStyling: false
+})
+
+const apiurl = process.env.VUE_APP_APIURL
 
 export default {
     data() {
@@ -98,9 +100,7 @@ export default {
             users: [],
             activeModal: 0,
             activeModalAdd: 0,
-            activeModalDelete: 0,
             searchQuery: null,
-            errorData: []
         };
     },
     mounted() {
@@ -108,7 +108,6 @@ export default {
     },
     methods: {
         load() {
-            const apiurl = process.env.VUE_APP_APIURL
             console.log(apiurl);
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
@@ -142,23 +141,54 @@ export default {
             }
             this.activeModalAdd = 1
         },
-        showDeleteModal: function (id) {
-            return this.activeModalDelete === id
+        deleteAlert(user) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Delete User " + user.email,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
+                    axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+                    axios
+                        .delete(apiurl + 'user/' + user.id)
+                        .then(response => {
+                            if (response.status == 200) {
+                                swalButtons.fire(
+                                    'Deleted!',
+                                    'User' + user.email + 'has been deleted.',
+                                    'success'
+                                )
+                                this.load()
+                            }
+                        })
+                        .catch(err => {
+                            swalButtons.fire(
+                                'Error',
+                                'Error While Deleting User <br> ' + err,
+                                'error'
+                            )
+                        })
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
         },
-        toggleDeleteModal: function (id) {
-            if (this.activeModalDelete !== 0) {
-                this.load();
-                this.activeModalDelete = 0
-                return false
-            }
-            this.activeModalDelete = id
-        }
     },
     components: {
         UserAdd,
         UserDetail,
-        UserDelete,
-        ErrorAlert,
     },
     computed: {
         resultQuery() {

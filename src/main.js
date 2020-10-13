@@ -11,6 +11,7 @@ import Admin from "@/layouts/Admin.vue";
 import Dashboard from "@/views/admin/Dashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Users from "@/views/admin/Users.vue";
+import VueSweetalert2 from 'vue-sweetalert2';
 
 const routes = [
   {
@@ -46,7 +47,7 @@ const routes = [
 
 Vue.config.productionTip = false;
 
-Vue.use(VueRouter);
+Vue.use(VueRouter, VueSweetalert2);
 
 const router = new VueRouter({
   routes,

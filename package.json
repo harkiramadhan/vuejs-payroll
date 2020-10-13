@@ -25,7 +25,8 @@
     "method-override": "^3.0.0",
     "tailwindcss": "1.8.10",
     "vue": "2.6.12",
-    "vue-router": "3.4.3"
+    "vue-router": "3.4.3",
+    "vue-sweetalert2": "^3.0.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.6",
