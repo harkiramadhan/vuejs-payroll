@@ -133,7 +133,11 @@ export default {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    Swal.fire(
+                        'Error',
+                        'Error While Editing User <br> ' + (err.response.data.errors.email ? err.response.data.errors.email : '') + '<br>' + (err.response.data.errors.role ? err.response.data.errors.role : '') + '<br>' + (err.response.data.errors.password ? err.response.data.errors.password : ''),
+                        'error'
+                    )
                 })
             this.close()
         }

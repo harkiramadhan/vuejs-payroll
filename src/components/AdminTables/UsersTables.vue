@@ -46,9 +46,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in resultQuery" :key="user.id">
-                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
-                        {{user.id}}
+                <tr v-for="(user, index) in resultQuery" :key="user.id">
+                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-center items-center">
+                        {{index+1}}
                     </th>
                     <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
                         {{user.email}}
@@ -101,6 +101,7 @@ export default {
             activeModal: 0,
             activeModalAdd: 0,
             searchQuery: null,
+            no: 1
         };
     },
     mounted() {
@@ -108,7 +109,6 @@ export default {
     },
     methods: {
         load() {
-            console.log(apiurl);
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios.get(apiurl + 'user').then(response => {
