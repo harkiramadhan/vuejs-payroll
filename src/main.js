@@ -14,6 +14,7 @@ import DqmartDashboard from "@/views/dqmart/DqmartDashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Users from "@/views/admin/Users.vue";
 import DqmartPegawai from "@/views/dqmart/Pegawai.vue";
+import Kredit from "@/views/dqmart/Kredit.vue";
 
 const routes = [
   {
@@ -55,7 +56,11 @@ const routes = [
       {
         path: "/dqmart/pegawai",
         component: DqmartPegawai,
-      }
+      },
+      {
+        path: "/dqmart/kredit",
+        component: Kredit
+      },
     ],
   },
   { path: "*", redirect: "/" },
