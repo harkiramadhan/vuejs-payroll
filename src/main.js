@@ -8,9 +8,12 @@ import App from "@/App.vue";
 import Auth from "@/layouts/Auth.vue";
 import Login from "@/views/auth/Login.vue";
 import Admin from "@/layouts/Admin.vue";
+import Dqmart from "@/layouts/Dqmart.vue";
 import Dashboard from "@/views/admin/Dashboard.vue";
+import DqmartDashboard from "@/views/dqmart/DqmartDashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Users from "@/views/admin/Users.vue";
+import DqmartPegawai from "@/views/dqmart/Pegawai.vue";
 
 const routes = [
   {
@@ -39,6 +42,20 @@ const routes = [
         path: "/admin/users",
         component: Users,
       },
+    ],
+  },
+  {
+    path: "/dqmart",
+    component: Dqmart,
+    children: [
+      {
+        path: "/dqmart/dashboard",
+        component: DqmartDashboard,
+      },
+      {
+        path: "/dqmart/pegawai",
+        component: DqmartPegawai,
+      }
     ],
   },
   { path: "*", redirect: "/" },

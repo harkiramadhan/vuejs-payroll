@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import CardTable from "@/components/AdminTables/UsersTables.vue";
+import CardTable from "@/components/AdminTables/PegawaiTables.vue";
 
 export default {
     components: {
@@ -18,7 +18,7 @@ export default {
             this.$router.push("/")
         }
 
-        if (localStorage.role != 'admin') {
+        if (localStorage.role != 'dqmart') {
             this.$router.push("/" + localStorage.role + "/dashboard")
         }
     },
