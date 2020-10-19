@@ -22,14 +22,14 @@
                     <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
                         No
                     </th>
-                    <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
                         Nama Pegawai
                     </th>
                     <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
                         Lembaga
                     </th>
-                    <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                        Total Kredit
+                    <th width="200px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
+                        Kedit Bulan Ini
                     </th>
                     <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
                         Action
@@ -51,7 +51,8 @@
                         Rp. 200.000,-
                     </th>
                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
-                        <button class="bg-green-600 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <kredit-add v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
+                        <button @click.stop="toggleModal(user.idguru)" class="bg-green-600 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             <i class="fas fa-plus mr-2 ml-1"></i><span class="mr-2">Kredit</span>
                         </button>
                     </td>
@@ -64,6 +65,7 @@
 
 <script>
 import axios from 'axios';
+import KreditAdd from '@/components/Modals/KreditAdd.vue';
 // const apiurl = process.env.VUE_APP_APIURL
 
 export default {
@@ -71,6 +73,7 @@ export default {
         return {
             users: [],
             searchQuery: null,
+            activeModal: 0,
             no: 1
         };
     },
@@ -89,8 +92,21 @@ export default {
                 this.$router.push("/")
             })
         },
+        showModal: function (id) {
+            return this.activeModal === id
+        },
+        toggleModal: function (id) {
+            if (this.activeModal !== 0) {
+                this.load();
+                this.activeModal = 0
+                return false
+            }
+            this.activeModal = id
+        },
     },
-    components: {},
+    components: {
+        KreditAdd
+    },
     computed: {
         resultQuery() {
             if (this.searchQuery) {
