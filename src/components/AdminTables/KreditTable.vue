@@ -29,7 +29,7 @@
                         Lembaga
                     </th>
                     <th width="200px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
-                        Kedit Bulan Ini
+                        Total Kredit
                     </th>
                     <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center" :class="[color === 'light' ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-green-800 text-green-300 border-green-700']">
                         Action
@@ -47,8 +47,12 @@
                     <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
                         {{user.nama_lembaga}}
                     </th>
-                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
+                    <th v-if="user.total" class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
                         Rp. {{user.total}}
+                        <input type="text" v-model="user.total" v-show="onType(index)" disabled>
+                    </th>
+                    <th v-else class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
+                        -
                     </th>
                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
                         <kredit-add v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
@@ -79,6 +83,8 @@ export default {
     },
     mounted() {
         this.load()
+        for (let i = 0; i < this.users.length; i++)
+            this.onType(i)
     },
     methods: {
         load() {
@@ -91,6 +97,9 @@ export default {
                 localStorage.clear()
                 this.$router.push("/")
             })
+        },
+        onType(i) {
+            this.users[i].total = String(this.users[i].total).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         },
         showModal: function (id) {
             return this.activeModal === id
