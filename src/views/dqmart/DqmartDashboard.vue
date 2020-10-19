@@ -6,7 +6,7 @@
                 <div class="flex-auto p-4">
                     <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                            <h5 class="text-gray-500 uppercase font-bold text-xs"> NEW USERS </h5><span class="font-semibold text-xl text-gray-800"> 2,356 </span>
+                            <h5 class="text-gray-500 uppercase font-bold text-xs"> Total Pegawai </h5><span class="font-semibold text-xl text-gray-800"> 2,356 </span>
                         </div>
                         <div class="relative w-auto pl-4 flex-initial">
                             <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500"><i class="fas fa-chart-pie"></i></div>

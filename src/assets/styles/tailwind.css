@@ -2188,6 +2188,10 @@ video {
   margin-left: -1rem;
 }
 
+.-mt-8 {
+  margin-top: -2rem;
+}
+
 .-mt-20 {
   margin-top: -5rem;
 }
