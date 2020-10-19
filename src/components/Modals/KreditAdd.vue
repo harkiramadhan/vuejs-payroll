@@ -92,13 +92,13 @@ export default {
         },
         save() {
             const postData = {
-                id: this.data.id,
+                idpegawai: this.data.idguru,
                 total: this.total,
             };
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
             axios
-                .put(apiurl + 'kredit', postData)
+                .post(apiurl + 'kredit', postData)
                 .then(response => {
                     if (response.status === 200) {
                         Swal.fire(

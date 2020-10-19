@@ -48,7 +48,7 @@
                         {{user.nama_lembaga}}
                     </th>
                     <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                        Rp. 200.000,-
+                        Rp. {{user.total}}
                     </th>
                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
                         <kredit-add v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
@@ -66,7 +66,7 @@
 <script>
 import axios from 'axios';
 import KreditAdd from '@/components/Modals/KreditAdd.vue';
-// const apiurl = process.env.VUE_APP_APIURL
+const apiurl = process.env.VUE_APP_APIURL
 
 export default {
     data() {
@@ -84,7 +84,7 @@ export default {
         load() {
             axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-            axios.get('http://kepegawaian.dqakses.id/api/pegawai_kompleks').then(response => {
+            axios.get(apiurl + 'kredit').then(response => {
                 this.users = response.data
             }).catch((err) => {
                 console.log(err);
