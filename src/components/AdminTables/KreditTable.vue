@@ -1,12 +1,12 @@
 <template>
 <div>
     <div class="flex flex-wrap -mt-8">
-        <div class="w-full lg:w-6/12 xl:w-3/12">
+        <div class="w-full xl:w-4/12">
             <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div class="flex-auto p-4">
                     <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                            <h5 class="text-gray-500 uppercase font-bold text-xs"> Total Kredit </h5>
+                            <h5 class="text-gray-500 uppercase font-bold text-xs"> Total Kredit Bulan {{data.bulan}} </h5>
                             <span class="font-semibold text-xl text-gray-800">
                                 Rp. {{data.total}}
                                 <input type="text" v-model="data.total" v-show="onChange()" disabled>
