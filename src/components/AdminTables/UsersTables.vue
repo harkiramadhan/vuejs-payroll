@@ -160,7 +160,7 @@ export default {
                             if (response.status === 200) {
                                 swalButtons.fire(
                                     'Deleted!',
-                                    'User' + user.email + 'has been deleted.',
+                                    'User ' + user.email + ' <br>has been deleted.',
                                     'success'
                                 )
                                 this.load()
@@ -169,7 +169,7 @@ export default {
                         .catch(err => {
                             swalButtons.fire(
                                 'Error',
-                                'Error While Deleting User <br> ' + err,
+                                'Error While Deleting User ' + this.email + ' <br> ' + err,
                                 'error'
                             )
                         })
@@ -179,7 +179,7 @@ export default {
                 ) {
                     swalButtons.fire(
                         'Cancelled',
-                        'Your imaginary file is safe :)',
+                        'User is not deleted :)',
                         'error'
                     )
                 }

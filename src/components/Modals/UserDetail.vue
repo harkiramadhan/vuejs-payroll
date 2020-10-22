@@ -6,7 +6,7 @@
             <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t bg-gray-100">
-                    <h3 class="text-xl font-semibold">
+                    <h3 class="text-lg font-semibold">
                         Detail User {{data.name}}
                     </h3>
                     <button @click="close" class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
