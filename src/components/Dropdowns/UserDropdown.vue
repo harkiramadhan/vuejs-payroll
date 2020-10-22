@@ -1,13 +1,13 @@
 <template>
 <div>
     <a class="text-gray-600 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
-        <strong class="w-12 h-12 text-sm text-white">{{role}} - {{name}}</strong>
+        <strong class="w-12 h-12 text-sm text-white capitalize">{{role}} - {{name}}</strong>
     </a>
     <div ref="popoverDropdownRef" class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
         hidden: !dropdownPopoverShow,
         block: dropdownPopoverShow,
       }">
-        <a href="javascript:void(0);" class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800">
+        <!--<a href="javascript:void(0);" class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800">
             Action
         </a>
         <a href="javascript:void(0);" class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800">
@@ -17,6 +17,7 @@
             Something else here
         </a>
         <div class="h-0 my-2 border border-solid border-gray-200" />
+        -->
         <a href="javascript:void(0);" v-on:click="logout($event)" class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800">
             Logout
         </a>

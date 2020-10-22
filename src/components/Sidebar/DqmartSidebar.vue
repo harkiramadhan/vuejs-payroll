@@ -12,9 +12,6 @@
         <!-- User -->
         <ul class="md:hidden items-center flex flex-wrap list-none">
             <li class="inline-block relative">
-                <notification-dropdown />
-            </li>
-            <li class="inline-block relative">
                 <user-dropdown />
             </li>
         </ul>
@@ -77,6 +74,15 @@
                     </router-link>
                 </li>
 
+                <div class="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25"></div>
+
+                <li class="items-center">
+                    <a href="javascript:void(0);" v-on:click="logout($event)" class="text-xs uppercase py-3 font-bold block">
+                        <i class="fas fa-sign-out-alt mr-3 text-sm"></i>
+                        Logout
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -86,8 +92,10 @@
 ); }
 
 <script>
-import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import axios from 'axios';
+
+const apiurl = process.env.VUE_APP_APIURL
 
 export default {
     data() {
@@ -99,9 +107,22 @@ export default {
         toggleCollapseShow: function (classes) {
             this.collapseShow = classes;
         },
+        logout(event) {
+            event.preventDefault()
+            axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.token
+            axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            axios
+                .post(apiurl + 'logout/')
+                .then(response => {
+                    if (response.status === 200) {
+                        localStorage.clear()
+                        this.$router.push("/")
+                    }
+                })
+
+        }
     },
     components: {
-        NotificationDropdown,
         UserDropdown,
     },
 };

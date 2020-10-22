@@ -33,6 +33,7 @@ const routes = [
     children: [
       {
         path: "/admin/dashboard",
+        name: 'Admin Dashboard',
         component: Dashboard,
       },
       {
@@ -41,6 +42,7 @@ const routes = [
       },
       {
         path: "/admin/users",
+        name: 'Users',
         component: Users,
       },
     ],
@@ -51,14 +53,17 @@ const routes = [
     children: [
       {
         path: "/dqmart/dashboard",
+        name: 'Dq Mart Dashboard',
         component: DqmartDashboard,
       },
       {
         path: "/dqmart/pegawai",
+        name: 'Pegawai',
         component: DqmartPegawai,
       },
       {
         path: "/dqmart/kredit",
+        name: 'Kredit',
         component: Kredit
       },
     ],
