@@ -31,26 +31,26 @@
                         <table class="table-auto items-center w-full bg-transparent border-collapse">
                             <thead>
                                 <tr>
-                                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
+                                    <th width="5px" class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
                                         No
                                     </th>
-                                    <th class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
+                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
                                         Nominal
                                     </th>
-                                    <th width="5px" class="px-6 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-center bg-green-800 text-green-300 border-green-700">
+                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
                                         Tanggal
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(kredit, index) in kredits" :key="kredit.id">
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-center items-center">
+                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-center items-center">
                                         {{index+1}}
                                     </th>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
+                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
                                         Rp. {{kredit.total}}
                                     </th>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
+                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
                                         {{kredit.date}}
                                     </th>
                                 </tr>
