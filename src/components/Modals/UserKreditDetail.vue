@@ -16,7 +16,7 @@
                     </button>
                 </div>
                 <!--body-->
-                <div class="relative p-6 flex-auto">
+                <div v-if="kredits.length > 0" class="relative p-6 flex-auto">
                     <div class="flex flex-wrap justify-between py-4 pt-4">
                         <div class="mr-4 p-3 text-left">
                             <span class="text-sm text-gray-500">Bulan</span>
@@ -34,32 +34,40 @@
                         <table class="table-auto items-center w-full bg-transparent border-collapse">
                             <thead>
                                 <tr>
-                                    <th width="5px" class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
+                                    <th width="5px" class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-white border-green-700">
                                         No
                                     </th>
-                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
+                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-white border-green-700">
                                         Nominal
                                     </th>
-                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-green-300 border-green-700">
+                                    <th class="px-3 border border-solid py-2 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-green-800 text-white border-green-700">
                                         Tanggal
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(kredit, index) in kredits" :key="kredit.id">
-                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-center items-center">
+                                    <th class="border border-solid px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-center items-center">
                                         {{index+1}}
                                     </th>
-                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
+                                    <th class="border border-solid px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
                                         Rp. {{kredit.total}}
                                     </th>
-                                    <th class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
+                                    <th class="border border-solid px-3 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-3 text-left items-center">
                                         {{kredit.date}}
                                     </th>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div v-else class="relative px-6 py-4 flex-auto text-white bg-green-500">
+                    <span class="text-4xl inline-block mr-5 align-middle">
+                        <i class="fas fa-bell"></i>
+                    </span> <br>
+                    <span class="inline-block align-middle mr-8 mt-2">
+                        <strong class="text-lg">Belum Ada Kredit Yang Di Ajukan</strong>
+                    </span>
                 </div>
                 <!--footer-->
                 <div class="flex items-start justify-between p-5 border-t border-solid border-gray-300 rounded bg-gray-100">
@@ -100,8 +108,6 @@ export default {
                 this.kredits = response.data.kredit
             }).catch((err) => {
                 console.log(err);
-                localStorage.clear()
-                this.$router.push("/")
             })
         },
         close: function () {

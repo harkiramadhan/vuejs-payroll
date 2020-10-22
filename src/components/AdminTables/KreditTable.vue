@@ -73,26 +73,30 @@
                 </thead>
                 <tbody>
                     <tr v-for="(user, index) in resultQuery" :key="user.id">
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-center items-center">
+                        <th class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-center items-center">
                             {{index+1}}
                         </th>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
+                        <th class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left items-center">
                             {{user.nama}}
                         </th>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
+                        <th class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
                             {{user.nama_lembaga}}
                         </th>
-                        <th v-if="user.total" class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
+                        <th v-if="user.total" class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
                             Rp. {{user.total}}
                             <input type="text" v-model="user.total" v-show="onType(index)" disabled>
                         </th>
-                        <th v-else class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
+                        <th v-else class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
                             -
                         </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
+                        <td class="border border-solid px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
                             <kredit-add v-if="showModal(user.idguru)" v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
                             <button @click.stop="toggleModal(user.idguru)" class="bg-green-600 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                 <i class="fas fa-plus mr-2 ml-1"></i><span class="mr-2">Kredit</span>
+                            </button>
+                            <UserKreditDetail v-if="showModalKredit(user.idguru)" v-bind:data="(user)" @close="toggleModalKredit(user.idguru)" />
+                            <button @click.stop="toggleModalKredit(user.idguru)" class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                <i class="fas fa-eye mr-2 ml-1"></i><span class="mr-2">Detail</span>
                             </button>
                         </td>
                     </tr>
@@ -106,6 +110,7 @@
 <script>
 import axios from 'axios';
 import KreditAdd from '@/components/Modals/KreditAdd.vue';
+import UserKreditDetail from '@/components/Modals/UserKreditDetail.vue';
 const apiurl = process.env.VUE_APP_APIURL
 
 export default {
@@ -115,6 +120,7 @@ export default {
             users: [],
             searchQuery: null,
             activeModal: 0,
+            activeModalKredit: 0,
             no: 1
         };
     },
@@ -166,9 +172,22 @@ export default {
             }
             this.activeModal = id
         },
+        showModalKredit: function (id) {
+            return this.activeModalKredit === id
+        },
+        toggleModalKredit: function (id) {
+            if (this.activeModalKredit !== 0) {
+                this.load()
+                this.loadTotal()
+                this.activeModalKredit = 0
+                return false
+            }
+            this.activeModalKredit = id
+        },
     },
     components: {
-        KreditAdd
+        KreditAdd,
+        UserKreditDetail
     },
     computed: {
         resultQuery() {
