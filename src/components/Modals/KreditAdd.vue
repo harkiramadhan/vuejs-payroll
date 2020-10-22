@@ -1,6 +1,6 @@
 <template>
 <transition name="modal">
-    <div class="modal-mask" v-show="show">
+    <div class="modal-mask">
         <div class="relative w-auto my-6 mx-auto max-w-sm modal-container">
             <!--content-->
             <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -51,7 +51,7 @@ import Swal from 'sweetalert2';
 const apiurl = process.env.VUE_APP_APIURL
 
 export default {
-    props: ['show', 'data'],
+    props: ['data'],
     data() {
         return {
             total: ''

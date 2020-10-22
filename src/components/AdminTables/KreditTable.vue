@@ -76,7 +76,7 @@
                             -
                         </th>
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
-                            <kredit-add v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
+                            <kredit-add v-if="showModal(user.idguru)" v-bind:data="(user)" :show="showModal(user.idguru)" @close="toggleModal(user.idguru)" />
                             <button @click.stop="toggleModal(user.idguru)" class="bg-green-600 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                 <i class="fas fa-plus mr-2 ml-1"></i><span class="mr-2">Kredit</span>
                             </button>

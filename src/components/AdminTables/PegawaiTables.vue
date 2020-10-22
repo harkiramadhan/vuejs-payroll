@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(user, index) in resultQuery" :key="user.id">
+                <tr v-for="(user, index) in resultQuery" :key="user.idguru">
                     <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-center items-center">
                         {{index+1}}
                     </th>
@@ -45,7 +45,8 @@
                         {{user.nama_lembaga}}
                     </th>
                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap text-center">
-                        <button class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <UserKreditDetail v-if="showModal(user.idguru)" v-bind:data="(user)" @close="toggleModal(user.idguru)" />
+                        <button @click.stop="toggleModal(user.idguru)" class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-2 py-1 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             <i class="fas fa-eye mr-2 ml-1"></i><span class="mr-2">Detail</span>
                         </button>
                     </td>
@@ -58,6 +59,7 @@
 
 <script>
 import axios from 'axios';
+import UserKreditDetail from '@/components/Modals/UserKreditDetail.vue';
 // const apiurl = process.env.VUE_APP_APIURL
 
 export default {
@@ -65,7 +67,8 @@ export default {
         return {
             users: [],
             searchQuery: null,
-            no: 1
+            no: 1,
+            activeModal: 0
         };
     },
     mounted() {
@@ -83,8 +86,21 @@ export default {
                 this.$router.push("/")
             })
         },
+        showModal: function (id) {
+            return this.activeModal === id
+        },
+        toggleModal: function (id) {
+            if (this.activeModal !== 0) {
+                this.load();
+                this.activeModal = 0
+                return false
+            }
+            this.activeModal = id
+        },
     },
-    components: {},
+    components: {
+        UserKreditDetail
+    },
     computed: {
         resultQuery() {
             if (this.searchQuery) {
