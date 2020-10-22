@@ -22,9 +22,12 @@
                             <span class="text-sm text-gray-500">Bulan</span>
                             <span class="text-xl font-bold block uppercase tracking-wide text-gray-700"> {{detail.bulan}} </span>
                         </div>
-                        <div class="mr-4 p-3 text-right">
+                        <div class="p-3 text-right">
                             <span class="text-sm text-gray-500">Total Kredit</span>
-                            <span class="text-xl font-bold block uppercase tracking-wide text-gray-700"> Rp. {{detail.total}} </span>
+                            <span class="text-xl font-bold block uppercase tracking-wide text-gray-700">
+                                Rp. {{detail.total}}
+                                <input type="text" v-model="data.total" v-show="onChange()" disabled>
+                            </span>
                         </div>
                     </div>
                     <div class="block w-full overflow-x-auto pb-6" style="max-height: 650px">
@@ -86,6 +89,7 @@ export default {
     },
     mounted() {
         this.load()
+        this.onChange()
     },
     methods: {
         load() {
@@ -110,6 +114,9 @@ export default {
                 return false
             }
             this.activeModal = id
+        },
+        onChange() {
+            this.detail.total = String(this.detail.total).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         },
     }
 }
