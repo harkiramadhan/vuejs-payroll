@@ -7,14 +7,18 @@ import "@/assets/styles/tailwind.css";
 import App from "@/App.vue";
 import Auth from "@/layouts/Auth.vue";
 import Login from "@/views/auth/Login.vue";
+
 import Admin from "@/layouts/Admin.vue";
 import Dqmart from "@/layouts/Dqmart.vue";
+import Keuangan from "@/layouts/Keuangan.vue";
+
 import Dashboard from "@/views/admin/Dashboard.vue";
 import DqmartDashboard from "@/views/dqmart/DqmartDashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Users from "@/views/admin/Users.vue";
 import DqmartPegawai from "@/views/dqmart/Pegawai.vue";
 import Kredit from "@/views/dqmart/Kredit.vue";
+import KeuanganDashboard from "@/views/keuangan/Dashboard.vue";
 
 const routes = [
   {
@@ -67,6 +71,17 @@ const routes = [
         component: Kredit
       },
     ],
+  },
+  {
+    path: "/keuangan",
+    component: Keuangan,
+    children: [
+        {
+          path: "/keuangan/dashboard",
+          name: 'Dashboard',
+          component: KeuanganDashboard
+        }
+    ]
   },
   { path: "*", redirect: "/" },
 ];
