@@ -23,6 +23,7 @@
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "method-override": "^3.0.0",
+    "serve": "^11.3.2",
     "tailwindcss": "1.8.10",
     "vue": "2.6.12",
     "vue-router": "3.4.3",
